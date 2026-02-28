@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+// Network topology negotiation.
+message NetworkTopologyRequest {
+  string client_kdc_ip = 1;
+}
+
+message NetworkTopologyResponse {
+  string partner_kdc_ip = 1;
+  string session_id = 2;
+}
+
+// Butterfly protocol.
+message ButterflySyncRequest {
+  string session_id = 1;
+  string key_id = 2;
+  bytes hash_key_L = 3;
+  bytes hash_key_R = 4;
+}
+
+message ButterflySyncResponse {
+  bool success = 1;
+  bytes hash_full_key = 2;
+}
+
+// Data exchange.
+// nonce and tag are needed for AES-GCM.
+message DataRequest {
+  string session_id = 1;
+  bytes encrypted_request_payload = 2;
+  bytes nonce = 3;
+  bytes tag = 4;
+}
+
+message DataResponse {
+  bytes encrypted_response_payload = 1;
+  bytes nonce = 2;
+  bytes tag = 3;
+}
+
+// Orchestrator service.
+service QKDOrchestrator {
+  rpc NegotiateNetworkTopology(NetworkTopologyRequest) returns (NetworkTopologyResponse);
+  rpc ButterflySynchronization(ButterflySyncRequest) returns (ButterflySyncResponse);
+  rpc DataExchange(DataRequest) returns (DataResponse);
+}
