@@ -4,7 +4,7 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from cryptography.hazmat.primitives import hashes
 from cryptography.exceptions import InvalidTag
-from constants import ErrorMessages
+from shared.constants import ErrorMessages
 
 
 # Bitwise XOR operation between two bytes arrays: it's used in teh Butterfly Protocol.
