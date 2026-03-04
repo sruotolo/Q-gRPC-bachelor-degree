@@ -17,7 +17,7 @@ class RestEtsiAdapter:
         payload = {"number": 1, "size": size}
 
         try:
-            response = requests.post(url, json=payload, headers=self.headers, timeout=5)
+            response = requests.post(url, verify=False, json=payload, headers=self.headers, timeout=5)
             response.raise_for_status()
             data = response.json()
 
@@ -32,7 +32,7 @@ class RestEtsiAdapter:
         payload = {"key_IDs": [{"key_ID": key_id}]}
 
         try:
-            response = requests.post(url, json=payload, headers=self.headers, timeout=5)
+            response = requests.post(url, verify=False, json=payload, headers=self.headers, timeout=5)
             response.raise_for_status()
             data = response.json()
 
