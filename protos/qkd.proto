@@ -2,11 +2,11 @@ syntax = "proto3";
 
 // Network topology negotiation.
 message NetworkTopologyRequest {
-  string client_kdc_ip = 1;
+  string client_kdc = 1;
 }
 
 message NetworkTopologyResponse {
-  string partner_kdc_ip = 1;
+  string partner_kdc = 1;
   string session_id = 2;
 }
 
@@ -39,7 +39,7 @@ message DataResponse {
 }
 
 // Orchestrator service.
-service QKDOrchestrator {
+service QKDOrchestratorService {
   rpc NegotiateNetworkTopology(NetworkTopologyRequest) returns (NetworkTopologyResponse);
   rpc ButterflySynchronization(ButterflySyncRequest) returns (ButterflySyncResponse);
   rpc DataExchange(DataRequest) returns (DataResponse);

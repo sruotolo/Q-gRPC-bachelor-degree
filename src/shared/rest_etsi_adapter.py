@@ -1,3 +1,5 @@
+import base64
+
 import requests
 from shared.constants import ErrorMessages
 
@@ -12,7 +14,7 @@ class RestEtsiAdapter:
         self.target_id = target_id
         self.headers = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    def generate_key(self, size: int = 256) -> tuple[str, str]:
+    def generate_key(self, size: int = 256) -> tuple[str, str, bytes, bytes]:
         url = f"{self.url}/{self.target_id}/enc_keys"
         payload = {"number": 1, "size": size}
 
@@ -21,13 +23,18 @@ class RestEtsiAdapter:
             response.raise_for_status()
             data = response.json()
 
-            return data["keys"][0]["key_ID"], data["keys"][0]["key"]
+            part_of_key = data["part_of_key"]
+            key_id = data["key_ID"]
+            key_half_bytes = base64.b64decode(data["key_half_b64"])
+            other_hash_bytes = base64.b64decode(data["other_half_hash_b64"])
+
+            return part_of_key, key_id, key_half_bytes, other_hash_bytes
 
         except requests.exceptions.RequestException as e:
             print(f"{ErrorMessages.GENERATION_ADAPTER_ERROR}: {e}")
             raise
 
-    def retrieve_key(self, key_id: str) -> str:
+    def retrieve_key(self, key_id: str) -> tuple[str, bytes, bytes]:
         url = f"{self.url}/{self.target_id}/dec_keys"
         payload = {"key_IDs": [{"key_ID": key_id}]}
 
@@ -36,7 +43,11 @@ class RestEtsiAdapter:
             response.raise_for_status()
             data = response.json()
 
-            return data["keys"][0]["key"]
+            part_of_key = data["part_of_key"]
+            key_half_bytes = base64.b64decode(data["key_half_b64"])
+            other_hash_bytes = base64.b64decode(data["other_half_hash_b64"])
+
+            return part_of_key, key_half_bytes, other_hash_bytes
 
         except requests.exceptions.RequestException as e:
             print(f"{ErrorMessages.RECOVERY_ADAPTER_ERROR}: {e}")

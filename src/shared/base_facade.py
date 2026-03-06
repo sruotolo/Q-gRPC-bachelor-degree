@@ -2,26 +2,27 @@ import os
 from sshtunnel import SSHTunnelForwarder
 import rest_etsi_adapter
 from constants import SystemMessages
+from shared.rest_etsi_adapter import RestEtsiAdapter
+
 
 class BaseFacade:
     """
     This is the base class for the client and the server facades, they will inherit from this class.
     It contains the logic for the creation of the network connection, the adapter and to close the active connection.
     """
-    def __init__(self, local_kdc_ip: str):
-        self.local_kdc_ip = local_kdc_ip.upper()
+    def __init__(self, local_kdc: str):
+        self.local_kdc_name = local_kdc.upper()
         self.active_tunnels = []
 
-        self.primary_adapter = None
-        self.secondary_adapter = None
-
-    def setup_network_connection(self, primary_ip: str, secondary_ip: str):
+    def setup_network_connection(self, primary_name: str, secondary_name: str) -> tuple[RestEtsiAdapter, RestEtsiAdapter]:
         print(SystemMessages.INIT_QKD)
-        self.primary_adapter = self._create_adapter(primary_ip)
-        self.secondary_adapter = self._create_adapter(secondary_ip)
+        primary_adapter = self._create_adapter(primary_name)
+        secondary_adapter = self._create_adapter(secondary_name)
         print(SystemMessages.COMPLETED_QKD_SETUP)
 
-    def _create_adapter(self, prefix: str):
+        return primary_adapter, secondary_adapter
+
+    def _create_adapter(self, prefix: str) -> RestEtsiAdapter:
         # Reads the .env file, if needed it creates the ssh tunnel, and then it initializes the adapters.
 
         target_id = os.getenv(f"{prefix}_SAE_ID")
@@ -39,7 +40,7 @@ class BaseFacade:
             tunnel = SSHTunnelForwarder(
                 (bastion_ip, 22),
                 ssh_username=bastion_user,
-                ssh_password=ssh_key,
+                ssh_pkey=ssh_key,
                 local_bind_address=('127.0.0.1', local_port),
                 remote_bind_address=(remote_ip, remote_port),
             )
@@ -47,14 +48,14 @@ class BaseFacade:
             self.active_tunnels.append(tunnel)
 
             env_url = os.getenv(f"{prefix}_BASE_URL")
-            base_url = os.getenv(f"{env_url}:{local_port}")
+            base_url = f"{env_url}:{local_port}"
             print(f"{SystemMessages.COMPLETED_SSH_CONNECTION}: {base_url}")
         else:
             env_url = os.getenv(f"{prefix}_BASE_URL")
             base_url = f"{env_url}:{remote_port}"
             print(f"{SystemMessages.DIRECT_CONNECTION}: {base_url}")
 
-        return rest_etsi_adapter.RestEtsiAdapter(base_url, target_id)
+        return RestEtsiAdapter(base_url, target_id)
 
     def close_connection(self):
         for tunnel in self.active_tunnels:

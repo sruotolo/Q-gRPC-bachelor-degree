@@ -7,14 +7,6 @@ from cryptography.exceptions import InvalidTag
 from shared.constants import ErrorMessages
 
 
-# Bitwise XOR operation between two bytes arrays: it's used in teh Butterfly Protocol.
-def xor_bytes(key1: bytes, key2: bytes) -> bytes:
-    if len(key1) != len(key2):
-        raise ValueError("key1 and key2 must be the same length")
-
-    return bytes(byte1 ^ byte2 for byte1, byte2 in zip(key1, key2))
-
-
 # SHA256 used for the cross-validation in the Butterfly Protocol.
 def sha256_hash(data: bytes) -> bytes:
     return hashlib.sha256(data).digest()
@@ -40,11 +32,11 @@ def aes_gcm_encrypt(plaintext: bytes, key: bytes) -> tuple[bytes, bytes, bytes]:
     nonce = os.urandom(12)
 
     # Generate the encrypted payload and slice it into the cipher text and tag.
-    crypto_result = aes_gcm.encrypt(plaintext, nonce, associated_data=None)
+    crypto_result = aes_gcm.encrypt(nonce, plaintext, associated_data=None)
     ciphertext = crypto_result[:-16]
     tag = crypto_result[-16:]
 
-    return nonce, tag, crypto_result
+    return nonce, tag, ciphertext
 
 
 # Decrypt a payload with AES-GCM.
@@ -56,6 +48,6 @@ def aes_gcm_decrypt(ciphertext: bytes, nonce: bytes, tag: bytes, key: bytes) -> 
     encrypted_message = ciphertext + tag
 
     try:
-        return aes_gcm.decrypt(encrypted_message, nonce, associated_data=None)
+        return aes_gcm.decrypt(nonce, encrypted_message, associated_data=None)
     except InvalidTag:
         raise Exception(ErrorMessages.SECURITY_BREACH)
