@@ -26,9 +26,9 @@ class RestEtsiAdapter:
             part_of_key = data["part_of_key"]
             key_id = data["key_ID"]
             key_half_bytes = base64.b64decode(data["key_half_b64"])
-            other_hash_bytes = base64.b64decode(data["other_half_hash_b64"])
+            other_half_bytes = base64.b64decode(data["other_half_hash_b64"])
 
-            return part_of_key, key_id, key_half_bytes, other_hash_bytes
+            return part_of_key, key_id, key_half_bytes, other_half_bytes
 
         except requests.exceptions.RequestException as e:
             print(f"{ErrorMessages.GENERATION_ADAPTER_ERROR}: {e}")
@@ -45,9 +45,9 @@ class RestEtsiAdapter:
 
             part_of_key = data["part_of_key"]
             key_half_bytes = base64.b64decode(data["key_half_b64"])
-            other_hash_bytes = base64.b64decode(data["other_half_hash_b64"])
+            other_half_bytes = base64.b64decode(data["other_half_hash_b64"])
 
-            return part_of_key, key_half_bytes, other_hash_bytes
+            return part_of_key, key_half_bytes, other_half_bytes
 
         except requests.exceptions.RequestException as e:
             print(f"{ErrorMessages.RECOVERY_ADAPTER_ERROR}: {e}")

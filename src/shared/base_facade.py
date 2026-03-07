@@ -14,7 +14,7 @@ class BaseFacade:
         self.local_kdc_name = local_kdc.upper()
         self.active_tunnels = []
 
-    def setup_network_connection(self, primary_name: str, secondary_name: str) -> tuple[RestEtsiAdapter, RestEtsiAdapter]:
+    def setup_adapter_connection(self, primary_name: str, secondary_name: str) -> tuple[RestEtsiAdapter, RestEtsiAdapter]:
         print(SystemMessages.INIT_QKD)
         primary_adapter = self._create_adapter(primary_name)
         secondary_adapter = self._create_adapter(secondary_name)
@@ -35,7 +35,7 @@ class BaseFacade:
             bastion_ip = os.getenv(f"{prefix}_BASTION_IP")
             bastion_user = os.getenv(f"{prefix}_BASTION_USER")
             remote_ip = os.getenv(f"{prefix}_REMOTE_IP")
-            ssh_key = os.getenv(f"GLOBAL_SSH_KEY")
+            ssh_key = os.getenv("GLOBAL_SSH_KEY")
 
             tunnel = SSHTunnelForwarder(
                 (bastion_ip, 22),
