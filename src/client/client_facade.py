@@ -1,6 +1,6 @@
 import grpc
-from generated import qkd_pb2
-from generated import qkd_pb2_grpc
+import qkd_pb2
+import qkd_pb2_grpc
 from shared.base_facade import BaseFacade
 from shared.constants import SystemMessages, ErrorMessages
 from shared.rest_etsi_adapter import RestEtsiAdapter
@@ -11,7 +11,6 @@ class ClientFacade(BaseFacade):
     It inherits from BaseFacade the methods for the network and adapter initialization.
     It adds all the encryption/decryption logic and the gRPC logic
     """
-
     def __init__(self, local_kdc_name: str, server_address: str = 'localhost:50051',
                  ca_cert_path: str = None,
                  client_cert_path: str = None, client_key_path: str = None):
@@ -28,7 +27,7 @@ class ClientFacade(BaseFacade):
         self.session_id = None
         self.session_key = None
         self.channel = None
-        self.stub: qkd_pb2_grpc.QKDOrchestratorServiceStub | None=  None
+        self.stub: qkd_pb2_grpc.QKDOrchestratorServiceStub | None = None
 
     # Private method to create the channel and the stub.
     def _setup_channel_and_stub(self):
@@ -57,7 +56,7 @@ class ClientFacade(BaseFacade):
             except Exception as e:
                 raise RuntimeError(f"{ErrorMessages.GENERIC_ERROR}: {e}")
         else:
-            # if the client doesn't have the certificates use an insecure channel without certification.
+            # If the client doesn't have the certificates use an insecure channel without certification.
             print(SystemMessages.INSECURE_CHANNEL_ACTIVATED)
             self.channel = grpc.insecure_channel(self.server_address)
 

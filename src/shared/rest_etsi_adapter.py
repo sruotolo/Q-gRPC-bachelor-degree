@@ -1,5 +1,4 @@
 import base64
-
 import requests
 from shared.constants import ErrorMessages
 
@@ -40,6 +39,7 @@ class RestEtsiAdapter:
 
         try:
             response = requests.post(url, verify=False, json=payload, headers=self.headers, timeout=5)
+
             response.raise_for_status()
             data = response.json()
 

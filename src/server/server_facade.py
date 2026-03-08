@@ -120,9 +120,12 @@ class ServerFacade(BaseFacade, QKDOrchestratorServiceServicer):
             )
 
             plain_request = decrypted_request_bytes.decode('utf-8')
-            print(f"{SystemMessages.MESSAGE_RECEIVED} -> {plain_request}")
+            print(f"{SystemMessages.MESSAGE_RECEIVED} from {request.session_id} -> {plain_request}")
 
             plain_response = f"{SystemMessages.SERVER_RESPONSE}"
+            if not plain_request:
+                plain_response = f"{SystemMessages.SERVER_RESPONSE_TO_BLANK_MESSAGE}"
+
             response_nonce_bytes, response_tag_bytes, encrypted_response_bytes = crypto_utils.aes_gcm_encrypt(
                 plaintext=plain_response.encode('utf-8'),
                 key=session_key,
