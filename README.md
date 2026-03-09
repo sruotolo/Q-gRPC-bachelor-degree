@@ -92,7 +92,7 @@ The project is designed to run on separate physical hardware so the configuratio
    Note: replace [...] with teh name of the two nodes (ex: AIJA and BRENCIS)
 ### Step 5: Generate gRPC Python Files
 Before running the Client and the Server it's needed to compile the Protocol Buffers (`.proto`) in the directory _protos_ to generate Python gRPC classes.  
-- **Project structure note: the directory called _protos_ only contains the source `.proto` file. The compiled python file are generated in a directory called _generated_.
+- **Project structure note**: the directory called _protos_ only contains the source `.proto` file. The compiled python file are generated in a directory called _generated_.
 To automatically compile the files and fix the known Python gRPC absolute import bug, give the script execution permission and run it:
 ```bash
 (Only on Linux/macOS)
