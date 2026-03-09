@@ -1,10 +1,10 @@
 import grpc
-import qkd_pb2
-import qkd_pb2_grpc
-from shared.base_facade import BaseFacade
-from shared.constants import SystemMessages, ErrorMessages
-from shared.rest_etsi_adapter import RestEtsiAdapter
-from shared import crypto_utils as crypto_utils
+from generated import qkd_pb2
+from generated import qkd_pb2_grpc
+from src.shared.base_facade import BaseFacade
+from src.shared.constants import SystemMessages, ErrorMessages
+from src.shared.rest_etsi_adapter import RestEtsiAdapter
+from src.shared import crypto_utils as crypto_utils
 
 class ClientFacade(BaseFacade):
     """

@@ -4,7 +4,7 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from cryptography.hazmat.primitives import hashes
 from cryptography.exceptions import InvalidTag
-from shared.constants import ErrorMessages
+from src.shared.constants import ErrorMessages
 
 
 # SHA256 used for the cross-validation in the Butterfly Protocol.

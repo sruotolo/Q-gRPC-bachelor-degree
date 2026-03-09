@@ -1,14 +1,14 @@
 import uuid
 import requests
 import grpc
-import qkd_pb2
-from qkd_pb2 import NetworkTopologyRequest, NetworkTopologyResponse
-from qkd_pb2 import ButterflySyncRequest, ButterflySyncResponse
-from qkd_pb2 import DataRequest, DataResponse
-from qkd_pb2_grpc import QKDOrchestratorServiceServicer
-from shared.base_facade import BaseFacade
-from shared.constants import SystemNames, SystemMessages, KdcNames, ErrorMessages, QKD_TOPOLOGY
-from shared import crypto_utils
+from generated import qkd_pb2
+from generated.qkd_pb2 import NetworkTopologyRequest, NetworkTopologyResponse
+from generated.qkd_pb2 import ButterflySyncRequest, ButterflySyncResponse
+from generated.qkd_pb2 import DataRequest, DataResponse
+from generated.qkd_pb2_grpc import QKDOrchestratorServiceServicer
+from src.shared.base_facade import BaseFacade
+from src.shared.constants import SystemNames, SystemMessages, KdcNames, ErrorMessages, QKD_TOPOLOGY
+from src.shared import crypto_utils
 
 class ServerFacade(BaseFacade, QKDOrchestratorServiceServicer):
     """

@@ -1,8 +1,8 @@
 import os
 import subprocess
 import time
-from shared.constants import SystemMessages, ErrorMessages
-from shared.rest_etsi_adapter import RestEtsiAdapter
+from src.shared.constants import SystemMessages, ErrorMessages
+from src.shared.rest_etsi_adapter import RestEtsiAdapter
 
 
 class BaseFacade:

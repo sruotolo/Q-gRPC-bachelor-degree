@@ -15,7 +15,7 @@
 # Sensitive data
 .env
 certificates/
-proxy/
+src/proxy/.env
 
 # Generated Python files for gRPC
 generated/

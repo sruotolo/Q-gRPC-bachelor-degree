@@ -1,15 +1,10 @@
-import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import shared.setup_grpc_path
-
 from dotenv import load_dotenv
 from concurrent import futures
 import grpc
-import qkd_pb2_grpc
-from server_facade import ServerFacade
-from shared.constants import SystemMessages, ErrorMessages
+from generated import qkd_pb2_grpc
+from src.server.server_facade import ServerFacade
+from src.shared.constants import SystemMessages, ErrorMessages
 
 def serve():
     load_dotenv()

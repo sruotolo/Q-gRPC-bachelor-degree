@@ -1,6 +1,6 @@
 import base64
 import requests
-from shared.constants import ErrorMessages
+from src.shared.constants import ErrorMessages
 
 class RestEtsiAdapter:
     """

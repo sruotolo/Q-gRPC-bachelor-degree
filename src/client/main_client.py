@@ -1,12 +1,8 @@
-import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import shared.setup_grpc_path
-
+import sys
 from dotenv import load_dotenv
-from shared.constants import KdcNames, SystemMessages, ErrorMessages
-from client_facade import ClientFacade
+from src.shared.constants import KdcNames, SystemMessages, ErrorMessages
+from src.client.client_facade import ClientFacade
 
 def main():
     load_dotenv()

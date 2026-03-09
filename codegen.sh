@@ -23,4 +23,7 @@ python -m grpc_tools.protoc \
     --mypy_grpc_out=./generated \
     ./protos/*.proto
 
+# fix the known Python gRPC absolute import bug.
+sed -i 's/import qkd_pb2 as qkd__pb2/from . import qkd_pb2 as qkd__pb2/' ./generated/*_pb2_grpc.py
+
 echo "Done."
