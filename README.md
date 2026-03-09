@@ -53,7 +53,7 @@ Before running the Client and the Server it's needed to compile the Protocol Buf
 ```bash
 python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. file.proto
 ```
-You can also use (only in unix_like systems):
+You can also use (only in unix-like systems):
 ```bash
 ./codegen.sh
 ```
