@@ -46,7 +46,7 @@ venv\Scripts\activate
 ### Step 3: Install Dependencies
 With the virtual environment activated, install the packages:
 ```bash
-pip install Flask requests grpcio grpcio-tools protobuf python-dotenv cryptography bcrypt
+pip install Flask requests grpcio grpcio-tools protobuf python-dotenv cryptography
 ```
 ### Step 4: Generate gRPC Python Files
 Before running the Client and the Server it's needed to compile the Protocol Buffers (`.proto`) in the directory _protos_ to generate Python gRPC classes. The command is (replace _file.proto_ with your proto file):
