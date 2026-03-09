@@ -79,9 +79,9 @@ The project is designed to run on separate physical hardware so the configuratio
    |`[...]_REMOTE_USER`|SSH username for the remote machine hosting the node|
 
    Note: replace [...] with teh name of the two nodes (ex: AIJA and BRENCIS).
+   
    There is a `.env-example` to copy in the root directory.
-
-   Note: replace [...] with teh name of the two nodes (ex: AIJA and BRENCIS)
+   
 3. **Proxy Configuration**
    Used for the machine that physically host the QKD nodes.
    |VARIABLE|DESCRIPTION|
@@ -93,6 +93,7 @@ The project is designed to run on separate physical hardware so the configuratio
    |`[...]_CA_PATH`|Path to the CA certificate|  
 
    Note: replace [...] with teh name of the two nodes (ex: AIJA and BRENCIS).
+   
    There is a `.env-example` to copy in `src/proxy`
 ### Step 5: Generate gRPC Python Files
 Before running the Client and the Server it's needed to compile the Protocol Buffers (`.proto`) in the directory _protos_ to generate Python gRPC classes.  
