@@ -9,7 +9,7 @@ REST APIs are used to interface with ETSI QKD 014 standard and gRPC is used for 
 
 ## Role of the Proxies
 Thinking about a real scenario, the QKD devices are very strict with security measures and are often protected with private network that are not directly accessible from the outside. The system uses two Flask Proxies
-(one for Aija and one for Brencis) with three main purposes:
+(one for Aija and one for Brencis) with two main purposes:
 - they securely tunnel the REST API coming from the external network to the private QKD;
 - they control some of the logic of the Butterfly Protocol such as splitting the keys in half and evaluate the hashes, temporarily save the key to be sure that Client and Server can synchronize on the same key and, after this phase,
   delete the used keys after both Client and Server had used them or if are not used for a certain amount of time.
