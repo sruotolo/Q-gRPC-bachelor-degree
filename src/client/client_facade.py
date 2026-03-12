@@ -1,3 +1,4 @@
+from time import perf_counter
 import grpc
 from generated import qkd_pb2
 from generated import qkd_pb2_grpc
@@ -5,6 +6,7 @@ from src.shared.base_facade import BaseFacade
 from src.shared.constants import SystemMessages, ErrorMessages
 from src.shared.rest_etsi_adapter import RestEtsiAdapter
 from src.shared import crypto_utils as crypto_utils
+from src.shared import test_utils as test_utils
 
 class ClientFacade(BaseFacade):
     """
@@ -28,6 +30,9 @@ class ClientFacade(BaseFacade):
         self.session_key = None
         self.channel = None
         self.stub: qkd_pb2_grpc.QKDOrchestratorServiceStub | None = None
+
+        self.butterfly_protocol_time = 0.0
+        self.data_exchange_time = 0.0
 
     # Private method to create the channel and the stub.
     def _setup_channel_and_stub(self):
@@ -80,6 +85,8 @@ class ClientFacade(BaseFacade):
         keys = {}
         hashes = {}
         try:
+            start_time = perf_counter()
+
             # Retrieve the key from both KDCs.
             print(SystemMessages.BUTTERFLY_CLIENT)
             local_part_of_key, key_id, local_half, local_hash = local_adapter.generate_key()
@@ -114,6 +121,9 @@ class ClientFacade(BaseFacade):
 
             # Cross-validation with the server.
             sync_response = self.stub.ButterflySynchronization(sync_request)
+
+            self.butterfly_protocol_time = perf_counter() - start_time
+
             if not sync_response.success or sync_response.hash_full_key != crypto_utils.sha256_hash(full_key_bytes):
                 raise PermissionError(ErrorMessages.SYNC_FAILED_BUTTERFLY)
 
@@ -141,6 +151,8 @@ class ClientFacade(BaseFacade):
             raise RuntimeError(ErrorMessages.FAILED_MESSAGE)
 
         try:
+            start_time = perf_counter()
+
             nonce, tag, ciphertext = crypto_utils.aes_gcm_encrypt(
                 plaintext=plain_message.encode('utf-8'),
                 key=self.session_key
@@ -162,6 +174,8 @@ class ClientFacade(BaseFacade):
                 key=self.session_key
             )
 
+            self.data_exchange_time = perf_counter() - start_time
+
             return decrypted_response.decode('utf-8')
         except grpc.RpcError as e:
             return f"{ErrorMessages.NETWORK_ERROR}: {e}"
@@ -169,3 +183,6 @@ class ClientFacade(BaseFacade):
             return f"{ErrorMessages.CRYPTOGRAPHIC_ERROR}: {e}"
         except Exception as e:
             return f"{ErrorMessages.CLIENT_BUG}: {e}"
+
+    def print_time_result(self):
+        test_utils.print_time_benchmark(self.butterfly_protocol_time, self.data_exchange_time)

@@ -54,9 +54,7 @@ class BaseFacade:
                     stderr=subprocess.PIPE,
                     text=True
                 )
-                self.active_tunnels.append(tunnel_process)
                 time.sleep(3)
-                
                 self.active_tunnels.append(tunnel_process)
             except Exception as e:
                 raise ConnectionError(f"{ErrorMessages.SSH_ERROR}: {local_prefix}")

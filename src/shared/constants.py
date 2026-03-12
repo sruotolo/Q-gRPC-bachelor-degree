@@ -89,13 +89,4 @@ class SystemMessages(StrEnum):
 
 class SystemNames(StrEnum):
     QKD_ORCHESTRATOR = "QKD Orchestrator"
-
-# QKD Topology: names and connection.
-class KdcNames(StrEnum):
-    AIJA = "AIJA"
-    BRENCIS = "BRENCIS"
-
-QKD_TOPOLOGY = {
-    KdcNames.AIJA: KdcNames.BRENCIS,
-    KdcNames.BRENCIS: KdcNames.AIJA
-}
+    CLIENT_KDC_NAME = "AIJA"

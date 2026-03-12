@@ -1,13 +1,13 @@
 import os
 import sys
 from dotenv import load_dotenv
-from src.shared.constants import KdcNames, SystemMessages, ErrorMessages
+from src.shared.constants import SystemMessages, ErrorMessages, SystemNames
 from src.client.client_facade import ClientFacade
 
 def main():
     load_dotenv()
 
-    local_kdc_name = KdcNames.AIJA
+    local_kdc_name = SystemNames.CLIENT_KDC_NAME
     server_address = os.getenv("SERVER_ADDRESS", "localhost:50051")
 
     ca_cert_path = os.getenv("CA_CERT_PATH")
@@ -32,6 +32,8 @@ def main():
 
     response = client.send_message(user_input)
     print(f"SERVER RESPONSE -> {response}")
+
+    client.print_time_result()
 
 if __name__ == "__main__":
     try:

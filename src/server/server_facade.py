@@ -7,7 +7,8 @@ from generated.qkd_pb2 import ButterflySyncRequest, ButterflySyncResponse
 from generated.qkd_pb2 import DataRequest, DataResponse
 from generated.qkd_pb2_grpc import QKDOrchestratorServiceServicer
 from src.shared.base_facade import BaseFacade
-from src.shared.constants import SystemNames, SystemMessages, KdcNames, ErrorMessages, QKD_TOPOLOGY
+from src.shared.constants import SystemNames, SystemMessages, ErrorMessages
+from src.server.kdc_network import KdcNames, QKD_TOPOLOGY
 from src.shared import crypto_utils
 
 class ServerFacade(BaseFacade, QKDOrchestratorServiceServicer):
