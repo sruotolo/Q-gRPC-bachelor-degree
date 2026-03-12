@@ -76,9 +76,12 @@ The project is designed to run on separate physical hardware so the configuratio
    |`[...]_LOCAL_PORT`|Local port for the SSH tunnel|
    |`[...]_REMOTE_PORT`|Remote port for the SSH tunnel|
    |`[...]_BASE_URL`|Base url used by the proxy to forward ETSI call (ex: http://127.0.0.1)|
-   |`[...]_REMOTE_USER`|SSH username for the remote machine hosting the node|  
+   |`[...]_REMOTE_USER`|SSH username for the remote machine hosting the node|
 
-   Note: replace [...] with teh name of the two nodes (ex: AIJA and BRENCIS)
+   Note: replace [...] with teh name of the two nodes (ex: AIJA and BRENCIS).
+   
+   There is a `.env-example` to copy in the root directory.
+   
 3. **Proxy Configuration**
    Used for the machine that physically host the QKD nodes.
    |VARIABLE|DESCRIPTION|
@@ -89,7 +92,9 @@ The project is designed to run on separate physical hardware so the configuratio
    |`[...]_KEY_PATH`|Path to the device key|
    |`[...]_CA_PATH`|Path to the CA certificate|  
 
-   Note: replace [...] with teh name of the two nodes (ex: AIJA and BRENCIS)
+   Note: replace [...] with teh name of the two nodes (ex: AIJA and BRENCIS).
+   
+   There is a `.env-example` to copy in `src/proxy`
 ### Step 5: Generate gRPC Python Files
 Before running the Client and the Server it's needed to compile the Protocol Buffers (`.proto`) in the directory _protos_ to generate Python gRPC classes.  
 - **Project structure note**: the directory called _protos_ only contains the source `.proto` file. The compiled python file are generated in a directory called _generated_.
