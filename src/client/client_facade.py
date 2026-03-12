@@ -6,7 +6,7 @@ from src.shared.base_facade import BaseFacade
 from src.shared.constants import SystemMessages, ErrorMessages
 from src.shared.rest_etsi_adapter import RestEtsiAdapter
 from src.shared import crypto_utils as crypto_utils
-from src.shared import test_utils as test_utils
+from src.custom_test.test_utils import print_time_benchmark
 
 class ClientFacade(BaseFacade):
     """
@@ -15,7 +15,8 @@ class ClientFacade(BaseFacade):
     """
     def __init__(self, local_kdc_name: str, server_address: str = 'localhost:50051',
                  ca_cert_path: str = None,
-                 client_cert_path: str = None, client_key_path: str = None):
+                 client_cert_path: str = None, client_key_path: str = None,
+                 enable_test: bool = False):
 
         super().__init__(local_kdc_name)
 
@@ -33,6 +34,7 @@ class ClientFacade(BaseFacade):
 
         self.butterfly_protocol_time = 0.0
         self.data_exchange_time = 0.0
+        self.enable_test = enable_test
 
     # Private method to create the channel and the stub.
     def _setup_channel_and_stub(self):
@@ -122,7 +124,7 @@ class ClientFacade(BaseFacade):
             # Cross-validation with the server.
             sync_response = self.stub.ButterflySynchronization(sync_request)
 
-            self.butterfly_protocol_time = perf_counter() - start_time
+            self.butterfly_protocol_time = (perf_counter() - start_time) * 1000
 
             if not sync_response.success or sync_response.hash_full_key != crypto_utils.sha256_hash(full_key_bytes):
                 raise PermissionError(ErrorMessages.SYNC_FAILED_BUTTERFLY)
@@ -174,7 +176,7 @@ class ClientFacade(BaseFacade):
                 key=self.session_key
             )
 
-            self.data_exchange_time = perf_counter() - start_time
+            self.data_exchange_time = (perf_counter() - start_time) * 1000
 
             return decrypted_response.decode('utf-8')
         except grpc.RpcError as e:
@@ -184,5 +186,6 @@ class ClientFacade(BaseFacade):
         except Exception as e:
             return f"{ErrorMessages.CLIENT_BUG}: {e}"
 
-    def print_time_result(self):
-        test_utils.print_time_benchmark(self.butterfly_protocol_time, self.data_exchange_time)
+    def print_time_result(self, counter: int):
+        print_time_benchmark(butterly_protocol_time=self.butterfly_protocol_time, data_exchange_time=self.data_exchange_time,
+                             test_counter=counter)

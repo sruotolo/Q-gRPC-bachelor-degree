@@ -1,5 +1,4 @@
 import os
-import sys
 from dotenv import load_dotenv
 from src.shared.constants import SystemMessages, ErrorMessages, SystemNames
 from src.client.client_facade import ClientFacade
@@ -32,8 +31,6 @@ def main():
 
     response = client.send_message(user_input)
     print(f"SERVER RESPONSE -> {response}")
-
-    client.print_time_result()
 
 if __name__ == "__main__":
     try:

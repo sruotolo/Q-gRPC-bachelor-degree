@@ -1,5 +1,6 @@
 from enum import StrEnum
 
+
 # Error messages used in the program so we don't write string in the code.
 class ErrorMessages(StrEnum):
     # Adapter.
@@ -41,6 +42,10 @@ class ErrorMessages(StrEnum):
     # Client main.
     CLIENT_CONNECTION_FAILED = "CLIENT: connection failed."
 
+    # Test.
+    NO_CSV_FILE = "Can't find the CSV result file, make sure tu run the tests before."
+    NO_CSV_COLUMN = "Can't fine the right column in the CSV file."
+    GRAPHIC_GENERATION_ERROR = "A generic error has occurred during the generation of graphics."
 
 # System messages used in the program so we don't write string in the code.
 class SystemMessages(StrEnum):
@@ -85,6 +90,11 @@ class SystemMessages(StrEnum):
     REQUEST_MESSAGE = "CLIENT: write the message you want to send or leave it blank to exit.\n"
     BLANK_MESSAGES = "CLIENT: no message written, closing the connection."
     MANUALLY_INTERRUPTION = "CLIENT: execution manually interrupted."
+
+    # Test.
+    RUNNING_TEST = "Starting the test suite to measure times with"
+    TEST_MESSAGE = "Standard message only for test."
+    ENDED_TEST = "Test suite ended. Creating and saving graphics."
 
 
 class SystemNames(StrEnum):
