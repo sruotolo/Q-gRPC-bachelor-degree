@@ -23,6 +23,8 @@ The project run with **Python 3.x** and a few external libraries are needed. You
 - protobuf
 - python-dotenv
 - cryptography
+- pandas
+- matplotlib
 
 ## How to run the project
 ### Step 1: Certificate generation
@@ -51,7 +53,7 @@ source .venv/bin/activate
 ### Step 3: Install Dependencies
 With the virtual environment activated, install the packages:
 ```bash
-pip install Flask requests grpcio grpcio-tools protobuf python-dotenv cryptography
+pip install Flask requests grpcio grpcio-tools protobuf python-dotenv cryptography pandas matplotlib
 ```
 ### Step 4: Environment Variable Configuration
 The project is designed to run on separate physical hardware so the configuration is divided into two parts.  
@@ -120,3 +122,9 @@ Multiple terminal windows are needed (make sure to activate the `venv`):
 3) start the client
    ```bash
    python3 -m src.client.main_client
+
+4) if you want to run the test to get the time results of the execution and to create the stacked bar graphic, instead of using the client main, you have to run the test script
+   ```bash
+   python3 -m src.custom_test.main_test
+   ```
+   Note: this script assumes that the directory "benchmark_result" and the CSV file "time_benchmark.csv" are already created in the root directory so make sure you create them before running the script.

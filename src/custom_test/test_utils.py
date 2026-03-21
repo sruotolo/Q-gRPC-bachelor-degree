@@ -48,12 +48,16 @@ def plot_stacked_bar():
         plt.bar(datas[test_id_col], datas[butterfly_protocol_col], label='Butterfly Protocol')
         plt.bar(datas[test_id_col], datas[data_exchange_col], label='Data exchange')
 
-        plt.title("Execution time for a test")
-        plt.xlabel("Test number")
+        plt.title("Execution time for a test", fontsize=22)
+        plt.legend(fontsize=18,loc='upper center',
+           bbox_to_anchor=(0.5, 1.02),
+           ncol=2,
+           frameon=False)
+        plt.xlabel("Test number", fontsize=22)
         plt.yscale('log')
-        plt.ylabel("Execution time (ms) - logarithmic scale")
-        plt.xticks(ticks=datas[test_id_col])
-        plt.legend()
+        plt.ylabel("Execution time (ms) - logarithmic scale", fontsize=22)
+        plt.xticks(ticks=datas[test_id_col], fontsize=18)
+        plt.yticks(fontsize=18)
         plt.tight_layout()
 
         plt.savefig(saving_path)
