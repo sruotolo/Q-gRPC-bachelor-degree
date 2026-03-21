@@ -1,3 +1,6 @@
+# Copyright 2026, Samuele Ruotolo
+# SPDX-License-Identifier: MIT
+
 from pathlib import Path
 import csv
 import pandas as pd

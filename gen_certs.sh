@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Copyright 2026, Samuele Ruotolo
+# SPDX-License-Identifier: MIT
+
 mkdir -p certificates
 cd certificates || exit
 

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copyright 2026, Samuele Ruotolo
+# SPDX-License-Identifier: MIT
+
 # Enable the venv automatically (if it exists).
 if [ -f ".venv/bin/activate" ]; then
   source .venv/bin/activate

@@ -1,3 +1,6 @@
+# Copyright 2026, Samuele Ruotolo
+# SPDX-License-Identifier: MIT
+
 from enum import IntEnum
 
 NUMBER_OF_TESTS = 20

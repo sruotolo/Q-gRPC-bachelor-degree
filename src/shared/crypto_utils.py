@@ -1,3 +1,6 @@
+# Copyright 2026, Samuele Ruotolo
+# SPDX-License-Identifier: MIT
+
 import os
 import hashlib
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM

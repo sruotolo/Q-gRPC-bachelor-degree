@@ -1,3 +1,6 @@
+# Copyright 2026, Samuele Ruotolo
+# SPDX-License-Identifier: MIT
+
 import base64
 import requests
 from src.shared.constants import ErrorMessages

@@ -1,3 +1,6 @@
+# Copyright 2026, Samuele Ruotolo
+# SPDX-License-Identifier: MIT
+
 from flask import Flask, jsonify, request
 import requests
 import hashlib

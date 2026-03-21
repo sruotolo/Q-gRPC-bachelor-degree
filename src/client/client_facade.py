@@ -1,3 +1,6 @@
+# Copyright 2026, Samuele Ruotolo
+# SPDX-License-Identifier: MIT
+
 from time import perf_counter
 import grpc
 from generated import qkd_pb2

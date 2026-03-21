@@ -1,3 +1,6 @@
+# Copyright 2026, Samuele Ruotolo
+# SPDX-License-Identifier: MIT
+
 import os
 from dotenv import load_dotenv
 from src.shared.constants import SystemMessages, ErrorMessages, SystemNames
