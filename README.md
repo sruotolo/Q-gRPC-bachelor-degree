@@ -6,6 +6,7 @@ The goal is to allow a Client and a Server to talk (but not like a chat: the Cli
 The system uses two Key Distribution Center (KDC), named **Aija** and **Brencis** (theese names are just a convention), and each one send half of the quantum key and the hash of the other half. Doing this, the full key 
 is never transmitted on the communication channel.  
 REST APIs are used to interface with ETSI QKD 014 standard and gRPC is used for the communication between the Client and the Server. 
+
 Feel free to use, modify, and distribute this project as you see fit!
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
